@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital@0;1&family=PT+Sans&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital@0;1&family=PT+Sans&display=swap" rel="stylesheet"> 
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+        <title>Detail</title>
+    </head>
+    <body style="font-family: Poor Story, PT sans; text-align: center; background-color: black; color: rgb(210, 207, 207);">
+        <h2 style="border: double white; margin: 20px 30% 0px 30%; padding: 12px 0px;">{{blog.title}}</h2>
+        <p style="margin-top: 5px; font-size: 12px; color: rgb(147, 147, 147);">{{blog.pub_date}}</p>
+        <p style="padding: 10px 33%; font-size: 15px; font-weight: 350;">{{blog.contents}}</p>
+        
+        <p style="font-family: Poor Story, PT sans; color: rgb(82, 175, 204);">
+            {% for hashtag in hashtags.all %}
+                #{{hashtag}}
+            {% endfor %}
+        </p>
+        <br>
+        <div class="btn-group" role="group" aria-level="Basic outlined example">
+            <a type="button" class="btn btn-outline-light" href="{% url 'edit' blog.id %}">Edit</a>
+            <a type="button" class="btn btn-outline-light" href="{% url 'delete' blog.id %}">Delete</a>
+        </div>
+        <br><br>
+        <hr>
+        {% for comment in blog.comments.all %}
+            <strong style="font-size: 18px;"> {{ comment.author_name }}</strong>
+            <div style="font-size: 18px; font-weight: 320;"> {{ comment.comment_text }}</div>
+            <p class="date" style="font-size: 12px; color: gray; font-weight: 100;"> {{comment.created_at }}</p> 
+        {% empty %}
+            <p>None</p>
+        {% endfor %}
+        <br>
+        <div class="btn-group" role="group" aria-level="Basic outlined example">
+            <a type="button" class="btn btn-outline-light" href="{% url 'add_comment_to_post' blog.id %}">Add Comment</a>
+        </div>
+        <br><hr>
+    </body>
+</html>
